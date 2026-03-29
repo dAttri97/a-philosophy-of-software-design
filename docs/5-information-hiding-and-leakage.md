@@ -1,4 +1,4 @@
-# 第五章 信息隐藏（和泄漏）
+# Chapter 5 Information Hiding and Leakage
 
 Chapter 4 argued that modules should be deep. This chapter, and the next few that follow, discuss techniques for creating deep modules.
 
@@ -32,7 +32,7 @@ The opposite of information hiding is *information leakage*. Information leakage
 
 Information leakage is one of the most important red flags in software design. One of the best skills you can learn as a software designer is a high level of sensitivity to information leakage. If you encounter information leakage between classes, ask yourself “How can I reorganize these classes so that this particular piece of knowledge only affects a single class?” If the affected classes are relatively small and closely tied to the leaked information, it may make sense to merge them into a single class. Another possible approach is to pull the information out of all of the affected classes and create a new class that encapsulates just that information. However, this approach will be effective only if you can find a simple interface that abstracts away from the details; if the new class exposes most of the knowledge through its interface, then it won’t provide much value (you’ve simply replaced back-door leakage with leakage through an interface).
 
-img Red Flag: Information Leakage img
+🚩 Red Flag: Information Leakage 🚩
 
 Information leakage occurs when the same knowledge is used in multiple places, such as two different classes that both understand the format of a particular type of file.
 
@@ -42,13 +42,13 @@ One common cause of information leakage is a design style I call *temporal decom
 
 Order usually does matter, so it will be reflected somewhere in the application. However, it shouldn’t be reflected in the module structure unless that structure is consistent with information hiding (perhaps the different stages use totally different information). **When designing modules, focus on the knowledge that’s needed to perform each task, not the order in which tasks occur**.
 
-img Red Flag: Temporal Decomposition img
+🚩 Red Flag: Temporal Decomposition 🚩
 
 In temporal decomposition, execution order is reflected in the code structure: operations that happen at different times are in different methods or classes. If the same knowledge is used at different points in execution, it gets encoded in multiple places, resulting in information leakage.
 
 ## 5.4 Example: HTTP server
 
-To illustrate the issues in information hiding, let’s consider the design decisions made by students implementing the HTTP protocol in a software design course. It’s useful to see both the things they did well and they areas where they had problems.
+To illustrate the issues in information hiding, let’s consider the design decisions made by students implementing the HTTP protocol in a software design course. It’s useful to see both the things they did well and the areas where they had problems.
 
 HTTP is a mechanism used by Web browsers to communicate with Web servers. When a user clicks on a link in a Web browser or submits a form, the browser uses HTTP to send a request over the network to a Web server. Once the server has processed the request, it sends a response back to the browser; the response normally contains a new Web page to display. The HTTP protocol specifies the format of requests and responses, both of which are represented textually. Figure 5.1 shows a sample HTTP request describing a form submission. The students in the course were asked to implement one or more classes to make it easy for Web servers to receive incoming HTTP requests and send responses.
 
@@ -100,7 +100,7 @@ Defaults illustrate the principle that interfaces should be designed to make the
 
 Whenever possible, classes should “do the right thing” without being explicitly asked. Defaults are an example of this. The Java I/O example on page 26 illustrates this point in a negative way. Buffering in file I/O is so universally desirable that noone should ever have to ask explicitly for it, or even be aware of its existence; the I/O classes should do the right thing and provide it automatically. The best features are the ones you get without even knowing they exist.
 
-img Red Flag: Overexposure img
+🚩 Red Flag: Overexposure 🚩
 
 If the API for a commonly used feature forces users to learn about other features that are rarely used, this increases the cognitive load on users who don’t need the rarely used features.
 
